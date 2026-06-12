@@ -166,12 +166,12 @@ export function Pricing() {
               </ul>
 
               <button
-                className={`w-full py-3 rounded-full text-sm tracking-wide transition-all duration-300 ${
+                className={`w-full py-4 rounded-full tracking-wide transition-colors duration-300 ${
                   plan.highlight
-                    ? "bg-[#8B7355] text-white hover:bg-[#7A6348]"
-                    : "bg-[#F2EDE6] text-[#1C1C1A] hover:bg-[#E8E3DC]"
+                    ? "shimmer-btn bg-[#8B7355] text-white hover:bg-[#7A6348]"
+                    : "bg-[#F2EDE6] text-[#4A4A45] hover:bg-[#E8E3DC]"
                 }`}
-                style={{ fontFamily: "Inter, sans-serif" }}
+                style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9rem" }}
               >
                 {plan.cta}
               </button>

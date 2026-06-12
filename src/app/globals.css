@@ -93,3 +93,32 @@
 .liquid-glass {
   @apply bg-white/70 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.2)];
 }
+
+/* Magic UI: Shimmer Button */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 200%;
+  }
+}

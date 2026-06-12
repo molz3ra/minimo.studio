@@ -87,78 +87,124 @@ export function Contact() {
                 </p>
               </motion.div>
             ) : (
-              <form action={formAction} className="bg-white rounded-2xl p-8 border border-[#E8E3DC] flex flex-col gap-5 relative">
+              <form action={formAction} className="bg-white rounded-2xl p-8 border border-[#E8E3DC] flex flex-col gap-6 relative">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-2">
-                    <label className="text-xs text-[#6B6B65]" style={{ fontFamily: "Inter, sans-serif" }}>Nome</label>
+                  <motion.div 
+                    className="relative flex flex-col"
+                    animate={state?.errors?.name ? { x: [-5, 5, -5, 5, 0] } : {}}
+                    transition={{ duration: 0.3 }}
+                  >
                     <input
+                      id="name"
                       required
                       name="name"
                       disabled={isPending}
-                      placeholder="Seu nome"
-                      className="border border-[#E8E3DC] rounded-xl px-4 py-3 text-sm text-[#1C1C1A] placeholder:text-[#C4C4BE] focus:outline-none focus:border-[#8B7355] transition-colors disabled:opacity-50"
+                      placeholder=" "
+                      className={`peer border rounded-xl px-4 pt-5 pb-2 text-sm text-[#1C1C1A] placeholder-transparent focus:outline-none transition-colors disabled:opacity-50 ${state?.errors?.name ? 'border-red-500' : 'border-[#E8E3DC] focus:border-[#8B7355]'}`}
                       style={{ fontFamily: "Inter, sans-serif" }}
                     />
-                    {state?.errors?.name && <span className="text-red-500 text-xs">{state.errors.name[0]}</span>}
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="text-xs text-[#6B6B65]" style={{ fontFamily: "Inter, sans-serif" }}>E-mail</label>
+                    <label 
+                      htmlFor="name" 
+                      className="absolute left-4 top-2 text-[10px] text-[#9A9A94] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3.5 peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-[#8B7355] pointer-events-none"
+                      style={{ fontFamily: "Inter, sans-serif" }}
+                    >
+                      Nome
+                    </label>
+                    {state?.errors?.name && <span className="text-red-500 text-[10px] mt-1 absolute -bottom-4">{state.errors.name[0]}</span>}
+                  </motion.div>
+
+                  <motion.div 
+                    className="relative flex flex-col"
+                    animate={state?.errors?.email ? { x: [-5, 5, -5, 5, 0] } : {}}
+                    transition={{ duration: 0.3 }}
+                  >
                     <input
+                      id="email"
                       required
                       name="email"
                       type="email"
                       disabled={isPending}
-                      placeholder="seu@email.com"
-                      className="border border-[#E8E3DC] rounded-xl px-4 py-3 text-sm text-[#1C1C1A] placeholder:text-[#C4C4BE] focus:outline-none focus:border-[#8B7355] transition-colors disabled:opacity-50"
+                      placeholder=" "
+                      className={`peer border rounded-xl px-4 pt-5 pb-2 text-sm text-[#1C1C1A] placeholder-transparent focus:outline-none transition-colors disabled:opacity-50 ${state?.errors?.email ? 'border-red-500' : 'border-[#E8E3DC] focus:border-[#8B7355]'}`}
                       style={{ fontFamily: "Inter, sans-serif" }}
                     />
-                    {state?.errors?.email && <span className="text-red-500 text-xs">{state.errors.email[0]}</span>}
-                  </div>
+                    <label 
+                      htmlFor="email" 
+                      className="absolute left-4 top-2 text-[10px] text-[#9A9A94] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3.5 peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-[#8B7355] pointer-events-none"
+                      style={{ fontFamily: "Inter, sans-serif" }}
+                    >
+                      E-mail
+                    </label>
+                    {state?.errors?.email && <span className="text-red-500 text-[10px] mt-1 absolute -bottom-4">{state.errors.email[0]}</span>}
+                  </motion.div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs text-[#6B6B65]" style={{ fontFamily: "Inter, sans-serif" }}>Tipo de contato</label>
+                <motion.div 
+                  className="relative flex flex-col mt-1"
+                  animate={state?.errors?.type ? { x: [-5, 5, -5, 5, 0] } : {}}
+                  transition={{ duration: 0.3 }}
+                >
                   <select
+                    id="type"
                     name="type"
                     required
+                    defaultValue=""
                     disabled={isPending}
-                    className="border border-[#E8E3DC] rounded-xl px-4 py-3 text-sm text-[#1C1C1A] focus:outline-none focus:border-[#8B7355] transition-colors bg-white disabled:opacity-50"
+                    className={`peer border rounded-xl px-4 pt-5 pb-2 text-sm text-[#1C1C1A] focus:outline-none transition-colors bg-white disabled:opacity-50 appearance-none ${state?.errors?.type ? 'border-red-500' : 'border-[#E8E3DC] focus:border-[#8B7355]'}`}
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <option value="">Selecione...</option>
+                    <option value="" disabled hidden></option>
                     <option value="Projeto de Interiores">Projeto de Interiores</option>
                     <option value="Consultoria de Espaço">Consultoria de Espaço</option>
                     <option value="Assinatura Profissional">Assinatura Profissional</option>
                     <option value="Outro">Outro</option>
                   </select>
-                  {state?.errors?.type && <span className="text-red-500 text-xs">{state.errors.type[0]}</span>}
-                </div>
+                  <label 
+                    htmlFor="type" 
+                    className="absolute left-4 top-2 text-[10px] text-[#9A9A94] transition-all pointer-events-none"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+                    Tipo de contato
+                  </label>
+                  {state?.errors?.type && <span className="text-red-500 text-[10px] mt-1 absolute -bottom-4">{state.errors.type[0]}</span>}
+                </motion.div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs text-[#6B6B65]" style={{ fontFamily: "Inter, sans-serif" }}>Mensagem</label>
+                <motion.div 
+                  className="relative flex flex-col mt-1"
+                  animate={state?.errors?.message ? { x: [-5, 5, -5, 5, 0] } : {}}
+                  transition={{ duration: 0.3 }}
+                >
                   <textarea
+                    id="message"
                     required
                     name="message"
                     rows={4}
                     disabled={isPending}
-                    placeholder="Conte sobre seu espaço e o que você precisa..."
-                    className="border border-[#E8E3DC] rounded-xl px-4 py-3 text-sm text-[#1C1C1A] placeholder:text-[#C4C4BE] focus:outline-none focus:border-[#8B7355] transition-colors resize-none disabled:opacity-50"
+                    placeholder=" "
+                    className={`peer border rounded-xl px-4 pt-6 pb-3 text-sm text-[#1C1C1A] placeholder-transparent focus:outline-none transition-colors resize-none disabled:opacity-50 ${state?.errors?.message ? 'border-red-500' : 'border-[#E8E3DC] focus:border-[#8B7355]'}`}
                     style={{ fontFamily: "Inter, sans-serif" }}
                   />
-                  {state?.errors?.message && <span className="text-red-500 text-xs">{state.errors.message[0]}</span>}
-                </div>
+                  <label 
+                    htmlFor="message" 
+                    className="absolute left-4 top-3 text-[10px] text-[#9A9A94] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:top-3 peer-focus:text-[10px] peer-focus:text-[#8B7355] pointer-events-none"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+                    Mensagem
+                  </label>
+                  {state?.errors?.message && <span className="text-red-500 text-[10px] mt-1 absolute -bottom-4">{state.errors.message[0]}</span>}
+                </motion.div>
 
                 {state?.message && !state?.success && (
-                  <div className="text-red-500 text-xs mt-2 text-center">{state.message}</div>
+                  <div className="text-red-500 text-xs mt-2 text-center font-medium">{state.message}</div>
                 )}
 
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="bg-[#1C1C1A] text-white py-3 rounded-full text-sm tracking-wide hover:bg-[#8B7355] transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-70"
-                  style={{ fontFamily: "Inter, sans-serif" }}
+                  className="mt-2 bg-[#1C1C1A] text-white py-4 rounded-full tracking-wide hover:bg-[#8B7355] transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-70 shimmer-btn"
+                  style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9rem" }}
                 >
-                  {isPending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+                  {isPending ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                   {isPending ? "Enviando..." : "Enviar mensagem"}
                 </button>
               </form>

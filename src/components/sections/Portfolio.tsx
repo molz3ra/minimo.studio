@@ -57,9 +57,25 @@ const projects = [
   },
 ];
 
+function ProjectImage({ project, hovered }: { project: any, hovered: boolean }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <Image
+      src={project.img}
+      alt={project.title}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      className={`object-cover transition-all duration-700 group-hover:scale-110 ${
+        isLoading ? "scale-105 blur-lg" : "scale-100 blur-0"
+      }`}
+      onLoad={() => setIsLoading(false)}
+    />
+  );
+}
+
 export function Portfolio() {
   const [active, setActive] = useState("Todos");
-  const [hovered, setHovered] = useState<number | null>(null);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -111,41 +127,28 @@ export function Portfolio() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="group relative overflow-hidden rounded-2xl cursor-pointer bg-white"
-              onMouseEnter={() => setHovered(project.id)}
-              onMouseLeave={() => setHovered(null)}
+              className="group relative overflow-hidden rounded-2xl cursor-pointer bg-white shadow-sm hover:shadow-lg transition-all duration-500"
             >
-              <div className="overflow-hidden" style={{ aspectRatio: "3/4" }}>
-                <Image
-                  src={project.img}
-                  alt={project.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={`object-cover transition-transform duration-700 ${hovered === project.id ? "scale-110" : "scale-100"}`}
-                />
+              <div className="overflow-hidden relative bg-[#E8E3DC]" style={{ aspectRatio: "3/4" }}>
+                <ProjectImage project={project} hovered={false} />
               </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: hovered === project.id ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 bg-gradient-to-t from-[#1C1C1A]/85 via-[#1C1C1A]/40 to-transparent flex flex-col justify-end p-6"
-              >
-                <span className="text-[#C4B89A] text-xs tracking-widest uppercase mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1A]/90 via-[#1C1C1A]/40 to-transparent flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                <span className="text-[#C4B89A] text-xs tracking-widest uppercase mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500" style={{ fontFamily: "Inter, sans-serif" }}>
                   {project.tag}
                 </span>
-                <h3 className="font-['Playfair_Display'] text-white leading-snug" style={{ fontSize: "1.15rem" }}>
+                <h3 className="font-['Playfair_Display'] text-white leading-snug translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75" style={{ fontSize: "1.15rem" }}>
                   {project.title}
                 </h3>
-                <div className="flex items-center justify-between mt-3">
+                <div className="flex items-center justify-between mt-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
                   <span className="text-white/70 text-xs" style={{ fontFamily: "Inter, sans-serif" }}>
                     {project.area}
                   </span>
-                  <div className="bg-[#8B7355] rounded-full p-2">
-                    <ArrowUpRight size={14} className="text-white" />
+                  <div className="bg-[#8B7355] rounded-full p-2 hover:bg-white hover:text-[#8B7355] transition-colors duration-300 pointer-events-auto">
+                    <ArrowUpRight size={14} className="text-current" />
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               <div className="p-4 md:hidden">
                 <span className="text-[#8B7355] text-xs" style={{ fontFamily: "Inter, sans-serif" }}>{project.tag}</span>
